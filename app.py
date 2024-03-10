@@ -20,5 +20,6 @@ def dining():
 def greet(name):
     return f'Hello, {name}! Welcome to Flask on Docker.'
 
+
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0', port=5000)

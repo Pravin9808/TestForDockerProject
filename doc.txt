@@ -743,4 +743,57 @@ f57e81d89e60: Pushed
 8d3ac3489996: Pushed
 2.0: digest: sha256:1eafa05eff9d186bf138e952aa040b7e0c906efac3c1a59f818960b81f3e14a9 size: 2204
 
-C:\Automation\TestForDockerProject>
+PS C:\Automation\TestForDockerProject> minikube start --driver=docker
+W0307 11:35:51.197972   14932 main.go:291] Unable to resolve the current Docker CLI context "default": context "default": context not found: open C:\Users\Admin\.docker\contexts\meta\37a8eec1ce19687d132fe29😄  minikube v1.32.0 on Microsoft Windows 10 Enterprise 10.0.19045.4046 Build 19045.4046
+👍  Starting control plane node minikube in cluster minikube
+🔥  Creating docker container (CPUs=2, Memory=3900MB) ...
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔗  Configuring bridge CNI (Container Networking Interface) ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: storage-provisioner, default-storageclass
+PS C:\Automation\TestForDockerProject> kubectl get pods -A
+NAMESPACE     NAME                               READY   STATUS    RESTARTS   AGE
+kube-system   coredns-5dd5756b68-wbd28           1/1     Running   0          61s
+kube-system   kube-apiserver-minikube            1/1     Running   0          76s
+kube-system   kube-controller-manager-minikube   1/1     Running   0          74s
+kube-system   kube-proxy-jx82r                   1/1     Running   0          62s
+kube-system   kube-scheduler-minikube            1/1     Running   0          74s
+kube-system   storage-provisioner                1/1     Running   0          71s
+PS C:\Automation\TestForDockerProject> kubectl get po,svc
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   3m22s
+PS C:\Automation\TestForDockerProject> kubectl apply -f deployment.yml
+error: the path "deployment.yml" does not exist
+PS C:\Automation\TestForDockerProject> cd C:\Automation\TestForDockerProject\kubernetes
+PS C:\Automation\TestForDockerProject\kubernetes> kubectl apply -f deployment.yml   
+deployment.apps/python-webapp created
+service/web-service created
+PS C:\Automation\TestForDockerProject\kubernetes> kubectl get po,svc
+NAME                                 READY   STATUS    RESTARTS   AGE
+pod/python-webapp-599fd9fd68-cq4d6   1/1     Running   0          18s
+pod/python-webapp-599fd9fd68-kqjzl   1/1     Running   0          18s
+
+NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes    ClusterIP   10.96.0.1       <none>        443/TCP        5m31s
+service/web-service   NodePort    10.99.251.251   <none>        80:32374/TCP   6s
+PS C:\Automation\TestForDockerProject\kubernetes> minikube ip
+W0307 11:42:16.243805   21784 main.go:291] Unable to resolve the current Docker CLI context "default": context "default": context not found: open C:\Users\Admin\.docker\contexts\meta\37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f\meta.json: The system cannot find the path specified.
+192.168.49.2
+PS C:\Automation\TestForDockerProject\kubernetes> minikube service web --url
+W0307 11:43:11.430703   11240 main.go:291] Unable to resolve the current Docker CLI context "default": context "default": context not found: open C:\Users\Admin\.docker\contexts\meta\37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f\meta.json: The system cannot find the path specified.
+
+❌  Exiting due to SVC_NOT_FOUND: Service 'web' was not found in 'default' namespace.
+You may select another namespace by using 'minikube service web -n <namespace>'. Or list out all the services using 'minikube service list'
+
+PS C:\Automation\TestForDockerProject\kubernetes> minikube service service/web-service --url
+W0307 11:43:54.479234   16988 main.go:291] Unable to resolve the current Docker CLI context "default": context "default": context not found: open C:\Users\Admin\.docker\contexts\meta\37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f\meta.json: The system cannot find the path specified.
+
+❌  Exiting due to SVC_NOT_FOUND: Service 'service/web-service' was not found in 'default' namespace.
+You may select another namespace by using 'minikube service service/web-service -n <namespace>'. Or list out all the services using 'minikube service list'
+
+PS C:\Automation\TestForDockerProject\kubernetes> minikube service web-service --url
+W0307 11:44:14.119335   23560 main.go:291] Unable to resolve the current Docker CLI context "default": context "default": context not found: open C:\Users\Admin\.docker\contexts\meta\37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f\meta.json: The system cannot find the path specified.
+http://127.0.0.1:64783
+❗  Because you are using a Docker driver on windows, the terminal needs to be open to run it.

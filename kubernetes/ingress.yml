@@ -8,9 +8,9 @@ spec:
     http:
       paths:
       - pathType: Prefix
-        path: "/bar"
+        path: "/dining"
         backend:
           service:
-            name: service1
+            name: web-service
             port:
               number: 80
