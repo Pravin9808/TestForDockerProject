@@ -9,10 +9,10 @@ spec:
   - host: foo.bar.com
     http:
       paths:
-      - path: /
+      - path: /dining
         pathType: Prefix
         backend:
           service:
             name: web-service
             port:
-              number: 5000
+              number: 80
