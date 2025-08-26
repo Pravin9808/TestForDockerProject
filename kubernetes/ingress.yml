@@ -1,35 +1,18 @@
-apiVersion: networking.istio.io/v1beta1
-kind: Gateway
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: web-gateway
-  namespace: webdemo
+  name: webapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  selector:
-    istio: ingressgateway  # Use Istio's ingress gateway
-  servers:
-  - port:
-      number: 5000
-      name: http
-      protocol: HTTP
-    hosts:
-    - "foo.bar.com"
-    
----
-apiVersion: networking.istio.io/v1beta1
-kind: VirtualService
-metadata:
-  name: web-virtualservice
-spec:
-  hosts:
-  - "foo.bar.com"
-  gateways:
-  - web-gateway
-  http:
-  - match:
-    - uri:
-        prefix: "/dining"
-    route:
-    - destination:
-        host: web-service
-        port:
-          number: 5000
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-service
+            port:
+              number: 80
