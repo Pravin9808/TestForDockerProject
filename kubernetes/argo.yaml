@@ -21,6 +21,6 @@ spec:
   # - repoURL: 
   #   chart: springboot
   #   targetRevision: 0.1.5
-  #   helm:
-  #       valueFiles:
-  #         - $values/deploy/dev/values.yaml
+    helm:
+        valueFiles:
+          - $values/deploy/dev/values.yaml
