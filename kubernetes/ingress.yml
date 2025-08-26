@@ -7,7 +7,7 @@ spec:
     istio: ingressgateway  # Use Istio's ingress gateway
   servers:
   - port:
-      number: 80
+      number: 5000
       name: http
       protocol: HTTP
     hosts:
@@ -31,4 +31,4 @@ spec:
     - destination:
         host: web-service
         port:
-          number: 80
+          number: 5000
