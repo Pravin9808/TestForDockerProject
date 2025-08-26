@@ -4,9 +4,9 @@ metadata:
   name: hpanginx
 spec:
   scaleTargetRef:
-    apiVersion: app/v1
+    apiVersion: apps/v1       # ✅ fixed
     kind: Deployment
-    name: python-webapp
+    name: python-webapp       # ✅ ensure this matches your deployment name
   minReplicas: 1
   maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 25
