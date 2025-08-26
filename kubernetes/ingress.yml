@@ -1,16 +1,30 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
 metadata:
-  name: ingress-wildcard-host
+  name: web-gateway
 spec:
-  rules:
-  - host: "foo.bar.com"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/dining"
-        backend:
-          service:
-            name: web-service
-            port:
-              number: 80
+  selector:
+    istio: ingressgateway  # Use Istio's ingress gateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "foo.bar.com"
+    
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: web-gateway
+spec:
+  selector:
+    istio: ingressgateway  # Use Istio's ingress gateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "foo.bar.com"
