@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: springboot-multisource1
+  namespace: argocd
+spec:
+  project: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  sources:
+    # Source 1: values repo
+  - repoURL: https://github.com/Pravin9808/ArgoWebdemo.git
+    targetRevision: main
+    ref: values
+    # Source 2: Helm chart in Git repo
+  # - repoURL: 
+  #   chart: springboot
+  #   targetRevision: 0.1.5
+  #   helm:
+  #       valueFiles:
+  #         - $values/deploy/dev/values.yaml
