@@ -19,6 +19,12 @@ spec:
         image: pravindevopsch/webapp:2.0
         ports:
         - containerPort: 5000
+          resources:
+        resources:
+          requests:
+            cpu: "100m"
+          limits:
+            cpu: "200m"
       #   volumeMounts:
       #     - name: secret-volume
       #       mountPath: /etc/secret-volume
